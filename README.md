@@ -11,7 +11,7 @@ import { applyMiddleware } from 'redux';
 import performance         from 'redux-peformance-plus';
 
 const middlewares = applyMiddleware(
-    perf({
+    performance({
         limit: 83,               // 83ms is ~ 5 animation frames
         onSlow: (action) => {
             console.warn(`${action.type} took ${action.duration().toFixed(2)ms}`, {
@@ -31,16 +31,41 @@ export default middlewares;
 $ npm install redux-performance-plus --save
 ~~~
 
-## Action Methods
+## Configuration
 
-The action data passed to `onSlow` contains the original action along with these methods:
+The middleware constructor takes one argument with options.
 
 ~~~js
-perf.duration();      // latest duration for action type, in ms
-perf.mean();          // mean duration, in ms
-perf.sdev();          // standard deviation of mean duration, in ms
-perf.samples();       // all measures for this action type
-perf.percentile(0.5); // Percentile duration for recorded samples of this aciton type
+// Default configuration, no behavior
+applyMiddleware(performance());
+
+// Default configuration, log all actions
+applyMiddleware(performance({
+    onSlow: (action) => {
+        console.log(`${action.type} took ${action.duration().toFixed(2)ms}`);
+    }
+}));
+
+// Custom configuration, log all actions taking over 100ms
+applyMiddleware(performance({
+    limit: 100,
+    onSlow: (action) => {
+        console.log(`${action.type} took ${action.duration().toFixed(2)ms}`);
+    }
+}));
+~~~
+
+## Action Methods
+
+The action data passed to `onSlow` contains the original action (with `type`, etc.), along with these methods:
+
+~~~js
+action.type             // unchanged
+action.duration();      // latest duration for action type, in ms
+action.mean();          // mean duration, in ms
+action.sdev();          // standard deviation of mean duration, in ms
+action.samples();       // all measures for this action type
+action.percentile(0.5); // Percentile duration for recorded samples of this aciton type
 ~~~
 
 ## Acknowledgements

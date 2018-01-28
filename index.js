@@ -16,8 +16,8 @@ const perfMiddleware = options => store => next => action => {
     let result = next(action);
     perf.end(action.type);
     
-    if (perf.duration(action.type) > (options.limit || defaultLimit)) {
-        (options.onSlow || defaultOnSlow)(Object.assign({}, action, {
+    if (perf.duration(action.type) > ((options || {}).limit || defaultLimit)) {
+        ((options || {}).onSlow || defaultOnSlow)(Object.assign({}, action, {
             duration:     perf.duration.bind(perf, action.type),
             mean:         perf.mean.bind(perf, action.type),
             sdev:         perf.sdev.bind(perf, action.type),
