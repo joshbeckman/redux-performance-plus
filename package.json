@@ -1,0 +1,27 @@
+{
+  "name": "redux-performance-plus",
+  "version": "1.0.0",
+  "description": "A Redux performance measurement middleware, with additional tooling",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andjosh/redux-performance-plus.git"
+  },
+  "keywords": [
+    "redux",
+    "performance",
+    "perf"
+  ],
+  "author": "andjosh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/andjosh/redux-performance-plus/issues"
+  },
+  "homepage": "https://github.com/andjosh/redux-performance-plus#readme",
+  "dependencies": {
+    "performance-plus": "^0.2.0"
+  }
+}
